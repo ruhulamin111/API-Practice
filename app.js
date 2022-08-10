@@ -3,6 +3,9 @@ const searchButton = document.getElementById('search-button').addEventListener('
     const searchInput = document.getElementById('search-input');
     const searchText = searchInput.value;
     searchInput.value = '';
+    if (searchText.length == 0) {
+        return
+    }
     loadData(searchText);
 })
 const loadData = input => {
@@ -11,8 +14,11 @@ const loadData = input => {
         .then(res => res.json())
         .then(data => displayData(data.meals))
 }
+
 const displayData = data => {
     const displayItems = document.getElementById('display-items');
+    displayItems.textContent = '';
+
     data.forEach(item => {
         const div = document.createElement('div');
         div.classList.add('col')
