@@ -8,11 +8,15 @@ const searchButton = document.getElementById('search-button').addEventListener('
     }
     loadData(searchText);
 })
-const loadData = input => {
+const loadData = async input => {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`
-    fetch(url)
-        .then(res => res.json())
-        .then(data => displayData(data.meals))
+    const res = await fetch(url);
+    const data = await res.json();
+    displayData(data.meals)
+
+    // fetch(url)
+    //     .then(res => res.json())
+    //     .then(data => displayData(data.meals))
 }
 
 const displayData = data => {
@@ -45,8 +49,8 @@ const itemDetails = mealId => {
         .then(data => displayItemDetails(data.meals[0]))
 }
 const displayItemDetails = meal => {
-    console.log(meal)
     const displayDetails = document.getElementById('item-details')
+    displayDetails.textContent = '';
     const div = document.createElement('div')
     div.classList.add('card')
     div.innerHTML = `
