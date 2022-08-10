@@ -50,7 +50,7 @@ const displayItemDetails = meal => {
         <p class="card-text">${meal.strInstructions.slice(0, 200)}</p>
     </div>
     <div class="card-footer">
-    <a href="${meal.strYoutube}">Go to Youtube</a>
+    <a href="${meal.strYoutube}" class="px-2 py-1 bg-danger text-white rounded text-decoration-none">Go to Youtube</a>
     </div>
 </div>
 `;
