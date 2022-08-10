@@ -14,7 +14,6 @@ const loadData = input => {
 const displayData = data => {
     const displayItems = document.getElementById('display-items');
     data.forEach(item => {
-        console.log(item)
         const div = document.createElement('div');
         div.classList.add('col')
         div.innerHTML = `
@@ -25,7 +24,7 @@ const displayData = data => {
                 <p class="card-text">${item.strInstructions.slice(0, 200)}</p>
             </div>
             <div class="card-footer">
-                <button class="">Details</button>
+                <button onclick="itemDetails(${item.idMeal})" class="bg-info border-0 px-2 py-1 rounded">Details</button>
             </div>
         </div>
         `;
@@ -33,3 +32,28 @@ const displayData = data => {
     })
 
 }
+const itemDetails = mealId => {
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayItemDetails(data.meals[0]))
+}
+const displayItemDetails = meal => {
+    console.log(meal)
+    const displayDetails = document.getElementById('item-details')
+    const div = document.createElement('div')
+    div.classList.add('card')
+    div.innerHTML = `
+    <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">${meal.strMeal}</h5>
+        <p class="card-text">${meal.strInstructions.slice(0, 200)}</p>
+    </div>
+    <div class="card-footer">
+    <a href="${meal.strYoutube}">Go to Youtube</a>
+    </div>
+</div>
+`;
+    displayDetails.appendChild(div);
+}
+
